@@ -1,0 +1,39 @@
+
+# So, will extract the config from 
+# http://localhost:8889/[application.name]-[profile].properties OR 
+# http://localhost:8889/[application.name]-[profile].yml
+# 
+# Will output the log message like,
+# 2018-08-02 14:08:36.966  INFO 11972 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at: http://localhost:8889/
+# 2018-08-02 14:08:41.866  INFO 11972 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=config-client, profiles=[dev], label=master, version=39ced84380a2a6451ffa570bca2644f346445646, state=null
+# 2018-08-02 14:08:41.868  INFO 11972 --- [           main] b.c.PropertySourceBootstrapConfiguration : Located property source: CompositePropertySource [name='configService', propertySources=[MapPropertySource [name='configClient'], MapPropertySource [name='https://github.com/JiaoJianbo/springcloud-tutorial/config-files/config-client-dev.properties']]]
+# 2018-08-02 14:08:41.875  INFO 11972 --- [           main] c.b.s.t.c.c.ConfigClientApplication      : No active profile set, falling back to default profiles: default
+#
+server:
+   port: 8881
+   
+spring:
+   application:
+      name: config-client
+   cloud:
+      config: 
+         label: master
+         profile: dev
+# 不直接配置config-server的URL，使用application name 到eureka server去查找
+#         uri: http://localhost:8889/
+         discovery:
+            enabled: true
+            serviceId: cloud-config-server
+
+# Refer to: http://www.cnblogs.com/ityouknow/p/6906917.html, 
+# or get error msg "Full authentication is required to access this resource." when /refresh
+# 如果配置修改了，先使用postman访问 http://localhost:8881/refresh 手动刷新一下
+management:
+   security:
+      enabled: false
+
+# eureka server
+eureka:
+   client:
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka
