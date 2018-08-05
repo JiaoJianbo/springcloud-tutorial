@@ -1,0 +1,21 @@
+server:
+   port: 8766
+   
+spring:
+   application:
+      name: turbine-service
+   
+# eureka server
+eureka:
+   client:
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka
+         
+turbine:
+# turbine.appConfig: 定义了要监控的服务，配置Eureka中的serviceId列表，表明监控哪些服务
+   appConfig: ribbon-service, feign-service
+# turbine.aggregator.clusterConfig：指定聚合哪些集群，多个使用","分割，默认为default
+   aggregator:
+      clusterConfig: default
+# turbine.clusterNameExpression：指定集群名称，可以是三种类型的值
+   clusterNameExpression: new String("default")

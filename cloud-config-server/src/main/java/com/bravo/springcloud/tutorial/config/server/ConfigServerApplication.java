@@ -7,7 +7,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableConfigServer
-
 @EnableEurekaClient // 将服务注册到Eureka server,将开启自动发现
 public class ConfigServerApplication {
 

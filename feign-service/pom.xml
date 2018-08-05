@@ -9,18 +9,18 @@
 <!-- 		<artifactId>tutorial-parent</artifactId> -->
 <!-- 		<version>0.0.1-SNAPSHOT</version> -->
 <!-- 	</parent> -->
-
+	
 	<parent>
         <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-parent</artifactId>
          <version>1.5.3.RELEASE</version>
-         <!-- <relativePath/>lookup parent from repository -->
+         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
+	
 	<groupId>com.bravo.springcloud.tutorial</groupId>
-	<artifactId>cloud-config-client</artifactId>
+	<artifactId>feign-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cloud-config-client</name>
+	<name>feign-service</name>
 	<url>http://maven.apache.org</url>
 	
 	<properties>
@@ -31,31 +31,47 @@
 	
 	<dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        
-        <!-- 可以监控程序在运行时状态，其中就包括/refresh的功能. 整合MQ也要引入此依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        
-        <!-- 将服务注册到 eureka server -->
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         
-        <!-- 引入MQ，Spring Cloud Bus -->
+        <!-- Feign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
+        
+        <!-- 使用Apache httpclient替换Feign原生httpclient. Spring Cloud从Brixtion.SR5版本开始支持这种替换 -->
+        <dependency>
+        	<groupId>org.apache.httpcomponents</groupId>
+        	<artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>com.netflix.feign</groupId>
+        	<artifactId>feign-httpclient</artifactId>
+        	<version>8.18.0</version>
+        </dependency>
+        
+        <!-- Feign内部已经支持了断路器，可以不用引入spring-cloud-starter-hystrix -->
+        
+		<!-- 加入hystrix dashboard -->
+        <dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+		</dependency>
+        <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- 要使用hystrix dashboard，还必须显式加入断路器 hystrix，否则会报 ClassNotFoundException -->
+        <dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-hystrix</artifactId>
+		</dependency>
 	</dependencies>
 
     <dependencyManagement>
@@ -69,7 +85,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
- 	
+
     <build>
         <plugins>
             <plugin>
@@ -78,5 +94,4 @@
             </plugin>
         </plugins>
     </build>
-    
 </project>

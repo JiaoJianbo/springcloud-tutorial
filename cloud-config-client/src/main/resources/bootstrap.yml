@@ -1,4 +1,4 @@
-
+#
 # So, will extract the config from 
 # http://localhost:8889/[application.name]-[profile].properties OR 
 # http://localhost:8889/[application.name]-[profile].yml
@@ -11,19 +11,29 @@
 #
 server:
    port: 8881
-   
+
 spring:
    application:
-      name: config-client
+      name: cloud-config-client
    cloud:
       config: 
+# 这个name不要随便改，已经和config-files对应了。如果这里不配置，将和application.name一样
+         name: config-client
          label: master
          profile: dev
-# 不直接配置config-server的URL，使用application name 到eureka server去查找
-#         uri: http://localhost:8889/
+# 如果服务无法连接到配置服务器，启动服务立即失败
+         failFast: true
+# 不直接配置config-server的URL，使用 serviceId 到eureka server去查找
+#         uri: http://localhost:8888/
          discovery:
             enabled: true
             serviceId: cloud-config-server
+## 引入RabbitMQ。如果更新了config-files，向config-client发送/bus/refresh的POST请求
+#   rabbitmq:
+#      host: localhost
+#      port: 5672
+#      username: guest
+#      password: guest
 
 # Refer to: http://www.cnblogs.com/ityouknow/p/6906917.html, 
 # or get error msg "Full authentication is required to access this resource." when /refresh
