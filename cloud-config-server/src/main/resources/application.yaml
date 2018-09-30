@@ -9,6 +9,7 @@ spring:
 # 使用过程中要能访问改github地址，也可以使用本地路径，如 file:///D:/dev/config-repo
                uri: https://github.com/JiaoJianbo/springcloud-tutorial/
                force-pull: true
+               deleteUntrackedBranches: true
                searchPaths: config-files
                username: 
                password: 
@@ -26,3 +27,4 @@ eureka:
 management:
    security:
       enabled: false
+
