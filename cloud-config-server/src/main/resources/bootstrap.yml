@@ -1,0 +1,4 @@
+# http://cloud.spring.io/spring-cloud-static/Edgware.SR4/single/spring-cloud.html#_encryption_and_decryption_2
+# https://blog.csdn.net/chenxyz707/article/details/80487733
+encrypt:
+   key: mySecKey
