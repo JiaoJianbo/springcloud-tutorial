@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@EnableEurekaClient
+//@EnableDiscoveryClient // Client 通用配置
+@EnableEurekaClient // Eureka client 专用配置
 @RestController
 public class EurekaClientApplication {
 
