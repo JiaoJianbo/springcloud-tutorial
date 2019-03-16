@@ -13,7 +13,7 @@ public class HelloWorldService {
 
 	@HystrixCommand(fallbackMethod = "serviceNotAvailable")
 	public String getHelloContent() {
-		return restTemplate.getForObject("http://SERVICE-HELLOWORLD/", String.class);
+		return restTemplate.getForObject("http://SERVICE-HELLOWORLD/", String.class); // 这里的 url 是 虚拟IP，并不带具体的端口号
 	}
 	
 	public String serviceNotAvailable() {

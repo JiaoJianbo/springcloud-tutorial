@@ -20,7 +20,7 @@ public class RibbonServiceApplication {
 	}
 
 	@Bean
-	@LoadBalanced
+	@LoadBalanced // Ribbon 属于客户端负载均衡方案
 	RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
