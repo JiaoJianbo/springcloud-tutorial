@@ -6,8 +6,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 @SpringBootApplication
+@EnableZuulProxy //其实这个注解已经包含了 @EnableCircuitBreaker 和 @EnableDiscoveryClient
 @EnableEurekaClient
-@EnableZuulProxy
 public class ZuulServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ZuulServiceApplication.class, args);

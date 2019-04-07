@@ -1,21 +1,25 @@
 server:
-   port: 8766
-   
+  port: 8766
 spring:
-   application:
-      name: turbine-service
-   
-# eureka server
+  application:
+    name: turbine-service
 eureka:
-   client:
-      serviceUrl:
-         defaultZone: http://localhost:8761/eureka
-         
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+# 只有所监控的 service 被访问了或调用了，turbine 才能看到数据。
+# 如果 servcie 只是启动，那么 turbine 会一直显示 Loading...，甚至抛出 Connection refused 异常。
 turbine:
-# turbine.appConfig: 定义了要监控的服务，配置Eureka中的serviceId列表，表明监控哪些服务
-   appConfig: ribbon-service, feign-service
-# turbine.aggregator.clusterConfig：指定聚合哪些集群，多个使用","分割，默认为default
-   aggregator:
-      clusterConfig: default
-# turbine.clusterNameExpression：指定集群名称，可以是三种类型的值
-   clusterNameExpression: new String("default")
+  # turbine.appConfig: 定义了要监控的服务，配置Eureka中的serviceId列表，表明监控哪些服务
+  appConfig: ribbon-service, feign-service
+  # turbine.aggregator.clusterConfig：指定聚合哪些集群，多个使用","分割，默认为default
+  aggregator:
+    clusterConfig: default
+  # turbine.clusterNameExpression：指定集群名称，可以是三种类型的值
+  clusterNameExpression: new String("default") # 同 **'default'**
+  
+logging:
+  level:
+    root: info
+    com.netflix.turbine.monitor: debug # 查看turbine log

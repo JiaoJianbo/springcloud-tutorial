@@ -11,11 +11,26 @@ eureka:
          defaultZone: http://localhost:8761/eureka
          
 zuul:
+   ignored-services: '*' # 除过以下两个service，其他service都被忽略，不代理
    routes:
-# api-1, api-2 ... 這個名字隨意
+      # api-1, api-2 ... 這個名字隨意
       api-1:
-         path: /api-ribbon/**
+         path: /api-ribbon/** #通过http://localhost:8767/api-ribbon/ 就可以代理访问 ribbon-service。写法ant-style pattern
          serviceId: ribbon-service
       api-2:
          path: /api-feign/**
          serviceId: feign-service
+#
+# These simple url-routes don't get executed as a HystrixCommand nor can you loadbalance multiple URLs with Ribbon.
+# To achieve this, specify a service-route and configure a Ribbon client for the serviceId 
+# (this currently requires disabling Eureka support in Ribbon)
+#
+#ribbon:
+#  eureka:
+#    enabled: false
+## 为 ribbon-service 配置负载均衡
+#ribbon-service: #这里是 ribbon 要请求的 serviceId
+#  ribbon:
+#    listOfServers: http://localhost:88764,http://localhost:88765
+
+# 复杂的路由映射可以使用 PatternServiceRouteMapper，使用正则表达式

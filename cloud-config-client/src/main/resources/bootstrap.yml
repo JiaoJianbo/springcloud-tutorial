@@ -1,3 +1,5 @@
+# config server 信息要配置在 bootstrap 配置文件中，让 client 启动时先从 config server 去加载配置信息
+# 而且远程配置的优先级要高于本地配置
 #
 # So, will extract the config from 
 # http://localhost:8889/[application.name]-[profile].properties OR 

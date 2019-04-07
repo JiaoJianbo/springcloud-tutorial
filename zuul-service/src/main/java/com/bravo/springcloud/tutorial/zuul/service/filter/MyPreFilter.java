@@ -14,7 +14,7 @@ public class MyPreFilter extends ZuulFilter {
 	private static Logger log = LoggerFactory.getLogger(MyPreFilter.class);
 
 	/*
-	 * run：过滤器的具体逻辑，这里只是将请求的URL简单些到日志中。
+	 * run：过滤器的具体逻辑，这里只是将请求的URL简单写到日志中。
 	 * 可以很复杂，包括查sql，nosql去判断该请求到底有没有权限访问。
 	 */
 	@Override

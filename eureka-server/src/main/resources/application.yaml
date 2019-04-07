@@ -1,17 +1,17 @@
 ## 使用空格进行退格
 ## 键值对冒号后面有一个空格
 server:
-   port: 8761
-
+  port: 8761
 eureka:
-   instance:
-      hostname: localhost
-   client:
-      registerWithEureka: false
-      fetchRegistry: false
-      serviceUrl:
-         defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+  instance:
+    hostname: localhost
+#  environment: dev # 默认是 test
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
 
 management:
-   security:
-      enabled: false
+  security:
+    enabled: false

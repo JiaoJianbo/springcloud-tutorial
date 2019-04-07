@@ -21,4 +21,10 @@ feign:
 # 启用断路器
    hystrix:
       enabled: true
+#可以使用 Feign.Builder 禁用某一个 FeignClient 的 Hystrix 的支持，而不用禁用全局的。
+
+# 解决第一次请求报超时异常的方案：
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+# 或者
+#hystrix.command.default.execution.timeout.enabled: false
 
